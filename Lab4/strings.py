@@ -31,12 +31,33 @@ def task4(Text_task4):
         print(Text_task4)
 
 
+def task4_modified(text):
+    print("\ntask4_modified")
+    if "m" in text:
+        return text[:text.index("m")]
+    else:
+        return text
+
+
 def task5(t):
     counter = 0
     for c in t:
         if c == "a" or c == "A" or c == "á":
             counter += 1
     return counter
+
+
+def test():
+    text = "123456789"
+    for letter in text:
+        if letter == "4":
+            print(text[:text.index("4")])
+            print(text[:4])
+
+
+def task5_modified(text, x):
+    print("\nTask 5 heavily modied", text.count(x))
+
 
 
 if __name__ == "__main__":
@@ -48,3 +69,7 @@ if __name__ == "__main__":
     task4(Text_task4)
     t = "Ahoj! Jak se máš?"
     print(task5(t))
+    text = "Jak jsi na tom, co dnes podniknem?"
+    print(task4_modified(text))
+    test()
+    task5_modified(text, 'a')
