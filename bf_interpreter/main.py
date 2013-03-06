@@ -2,6 +2,24 @@ __author__ = 'Tomas Sykora sykorto6@fit.cvut.cz'
 import sys
 
 
+class Output():
+    def __init__(self):
+        self.actual_output = [0] * 30000
+        self.positon = 0
+
+    def get(self):
+        return self.actual_output[self.positon]
+
+    def set(self, value):
+        self.actual_output[self.positon] = value
+
+    def increase
+
+
+
+
+
+
 def file_source(filename):
     """
     Returns variable source which contains brainfuck source code
@@ -43,6 +61,8 @@ def minus(bf_output, position, value):
 def execute_interpreter(source):
     bf_output = [0] * 30000
     print(bf_output.count(0))
+    for source_position in range(0, len(source)):
+        if source[source]:
 
 
 
