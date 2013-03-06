@@ -20,10 +20,21 @@ def prompt_source():
     return source
 
 
-if __name__ == "__main__":
+def get_input():
     NONARGV = []
     if sys.argv[1:] == NONARGV:
         source = prompt_source()
-        print(source)
     elif sys.argv[1] == '-f':
         file_source(sys.argv[2])
+    return source
+
+
+def execute_interpreter(source):
+
+
+
+if __name__ == "__main__":
+    print(get_input())
+
+
+
