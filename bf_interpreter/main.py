@@ -29,6 +29,17 @@ def get_input():
     return source
 
 
+def plus(bf_output, position, value):
+    bf_output[position] += value
+    return bf_output
+
+
+def minus(bf_output, position, value):
+    bf_output[position] += value
+    return bf_output
+
+
+
 def execute_interpreter(source):
     bf_output = [0] * 30000
     print(bf_output.count(0))
