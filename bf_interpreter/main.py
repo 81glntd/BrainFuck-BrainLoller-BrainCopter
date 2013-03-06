@@ -30,6 +30,8 @@ class Output():
             print("!!! Error you have reached outside of BrainFuck working array !!!")
 
 
+
+
 def file_source(filename):
     """
     Returns variable source which contains BrainFuck source code
@@ -38,13 +40,11 @@ def file_source(filename):
     """
     with open(filename, encoding='utf-8') as bf_source_file:
         source = bf_source_file.read()
-        print(source)
 
 
 def prompt_source():
     print("You have not chosen any file please enter BrainFuck code manually")
     source = input()
-    print(source)
     return source
 
 
@@ -59,12 +59,11 @@ def get_input():
 
 def execute_interpreter(source):
     output = Output()
-    print(output.actual_output)
     source_position = 0
     while len(source):
         loop_open = 0
         loop_close = 0
-        current = source[source_position]
+        #current = source[source_position]
         if source[source_position] == '+':
             output.increase()
         elif source[source_position] == '-':
@@ -77,8 +76,11 @@ def execute_interpreter(source):
             loop_open = source_position
         elif source[source_position] == ']':
             if output.get() > 0:
-                source_position = (loop_close - 1)
-        source_position = source_position + 1
+                source_position = (loop_open - 1)
+        elif source[source_position] == '.':
+            #print(output.actual_output)
+            print(output.get())
+        source_position += 1
 
 
 
