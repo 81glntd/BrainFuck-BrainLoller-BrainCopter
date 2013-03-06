@@ -57,16 +57,6 @@ def get_input():
     return source
 
 
-def plus(bf_output, position, value):
-    bf_output[position] += value
-    return bf_output
-
-
-def minus(bf_output, position, value):
-    bf_output[position] += value
-    return bf_output
-
-
 def execute_interpreter(source):
     output = Output()
     print(output.actual_output)
@@ -74,8 +64,14 @@ def execute_interpreter(source):
         source_position = 0
         loop_open = 0
         loop_close = 0
-        if source[source_position] == '[':
-            loop_open = source_position
+        if source[source_position] == '+':
+            output.increase()
+        elif source[source_position] == '-':
+            output.decrease()
+        elif source[source_position] == '>':
+            output.move_right()
+        elif source[source_position] == '<':
+            output.move_left()
 
 
 
