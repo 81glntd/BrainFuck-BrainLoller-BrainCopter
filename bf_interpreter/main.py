@@ -30,16 +30,10 @@ class Output():
             print("!!! Error you have reached outside of BrainFuck working array !!!")
 
 
-
-
-
-
-
-
 def file_source(filename):
     """
-    Returns variable source which contains brainfuck source code
-    file_source is handling brainfuck source code from file using 'switcher' -f
+    Returns variable source which contains BrainFuck source code
+    file_source is handling BrainFuck source code from file using 'switcher' -f
     :param filename:
     """
     with open(filename, encoding='utf-8') as bf_source_file:
@@ -73,12 +67,17 @@ def minus(bf_output, position, value):
     return bf_output
 
 
-
 def execute_interpreter(source):
-    bf_output = [0] * 30000
-    print(bf_output.count(0))
-    for source_position in range(0, len(source)):
-        if source[source]:
+    output = Output()
+    print(output.actual_output)
+    while len(source):
+        source_position = 0
+        loop_open = 0
+        loop_close = 0
+        if source[source_position] == '[':
+            loop_open = source_position
+
+
 
 
 
