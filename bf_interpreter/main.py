@@ -13,7 +13,23 @@ class Output():
     def set(self, value):
         self.actual_output[self.positon] = value
 
-    def increase
+    def increase(self):
+        self.actual_output[self.positon] += 1
+
+    def decrease(self):
+        self.actual_output[self.positon] -= 1
+
+    def move_right(self):
+        self.positon += 1
+        if self.positon > len(self.actual_output):
+            print("!!! Error you have reached maximum size of BrainFuck working array !!!")
+
+    def move_left(self):
+        self.positon -= 1
+        if self.positon < 0:
+            print("!!! Error you have reached outside of BrainFuck working array !!!")
+
+
 
 
 
