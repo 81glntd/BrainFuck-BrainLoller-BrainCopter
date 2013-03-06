@@ -13,11 +13,17 @@ def file_source(filename):
         print(source)
 
 
+def prompt_source():
+    print("You have not chosen any file please enter BrainFuck code manually")
+    source = input()
+    print(source)
+    return source
+
+
 if __name__ == "__main__":
     NONARGV = []
     if sys.argv[1:] == NONARGV:
-        print("You have not chosen any file please enter BrainFuck code manualy")
-        source = input()
+        source = prompt_source()
         print(source)
-    else: #sys.argv[1] == '-f':
+    elif sys.argv[1] == '-f':
         file_source(sys.argv[2])
