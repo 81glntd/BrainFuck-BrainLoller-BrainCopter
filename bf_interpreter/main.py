@@ -30,11 +30,14 @@ def get_input():
 
 
 def execute_interpreter(source):
+    bf_output = [0] * 30000
+    print(bf_output.count(0))
 
 
 
 if __name__ == "__main__":
-    print(get_input())
+    execute_interpreter(get_input())
+
 
 
 
