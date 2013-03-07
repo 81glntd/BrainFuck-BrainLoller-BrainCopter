@@ -40,6 +40,7 @@ def file_source(filename):
     """
     with open(filename, encoding='utf-8') as bf_source_file:
         source = bf_source_file.read()
+        return source
 
 
 def prompt_source():
@@ -53,11 +54,12 @@ def get_input():
     if sys.argv[1:] == NONARGV:
         source = prompt_source()
     elif sys.argv[1] == '-f':
-        file_source(sys.argv[2])
+        return file_source(sys.argv[2])
     return source
 
 
 def execute_interpreter(source):
+    print(source)
     output = Output()
     source_position = 0
     loop_open = 0
@@ -76,10 +78,10 @@ def execute_interpreter(source):
             loop_open = source_position
         elif source[source_position] == ']':
             if output.get() > 0:
-                source_position = (loop_open)
+                source_position = loop_open
         elif source[source_position] == '.':
             #print(output.actual_output)
-            print(chr(output.get()), end='')
+            print(chr(output.get()), end=r'')
         source_position += 1
 
 
