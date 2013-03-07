@@ -1,10 +1,8 @@
 """
 This is new branch to fix the fucking errors i have no idea where they came from !!!
 """
-
-
-
 __author__ = 'Tomas Sykora sykorto6@fit.cvut.cz'
+
 import sys
 
 
@@ -36,8 +34,6 @@ class Output():
             print("!!! Error you have reached outside of BrainFuck working array !!!")
 
 
-
-
 def file_source(filename):
     with open(filename, encoding='utf-8') as bf_source_file:
         source = bf_source_file.read()
@@ -59,8 +55,8 @@ def get_input():
         return file_source(sys.argv[2])
 
 
-def execute_interpreter(source):
-
+def execute_interpreter(code):
+    source = code
     output = Output()
     source_position = 0
     loop_open = 0
