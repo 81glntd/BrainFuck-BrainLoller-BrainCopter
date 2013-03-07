@@ -61,7 +61,7 @@ def execute_interpreter(code):
     source_position = 0
     loop_open = 0
     loop_close = 0
-    while len(source) >= source_position:
+    while len(source) > source_position:
         #current = source[source_position]
         if source[source_position] == '':
             print("Jsi v piči")
