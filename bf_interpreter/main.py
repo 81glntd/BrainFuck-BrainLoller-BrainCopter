@@ -1,3 +1,10 @@
+"""
+This is new branch to fix the fucking errors i have no idea where they came from !!!
+
+"""
+
+
+
 __author__ = 'Tomas Sykora sykorto6@fit.cvut.cz'
 import sys
 
