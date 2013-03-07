@@ -61,6 +61,7 @@ def execute_interpreter(code):
     source_position = 0
     loop_open = 0
     loop_close = 0
+    counter = 0
     while len(source) > source_position + 1:
         #current = source[source_position]
         if source[source_position] == '':
@@ -75,14 +76,31 @@ def execute_interpreter(code):
         elif source[source_position] == '<':
             output.move_left()
         elif source[source_position] == '[':
-            loop_open = source_position
+            if ~source[source_position]:
+                while 1:
+                    helper = source[source_position]
+                    if helper == ']':
+                        counter -= 1
+                    if helper == '[':
+                        counter += 1
+                    if ~counter:
+                        break
+                    source_position += 1
         elif source[source_position] == ']':
-            if output.get() > 0:
-                source_position = loop_open
-        elif source[source_position] == '.':
-            #print(output.actual_output)
-            print(chr(output.get()), end=r'')
-        source_position += 1
+            if source[source_position]:
+                while 1:
+                    helper = source[source_position]
+                    if helper == ']':
+                        counter -= 1
+                    if helper == '[':
+                        counter += 1
+                    if ~counter:
+                        break
+                    source_position -= 1
+            elif source[source_position] == '.':
+                #print(output.actual_output)
+                print(chr(output.get()), end=r'')
+            source_position += 1
 
 
 #TODO: It really exists i need to be able to make more BrainFuck loop inside Each one other
