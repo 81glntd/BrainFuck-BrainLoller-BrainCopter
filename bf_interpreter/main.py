@@ -1,9 +1,5 @@
-
 """
-
-
 This is new branch to fix the fucking errors i have no idea where they came from !!!
-
 """
 
 
