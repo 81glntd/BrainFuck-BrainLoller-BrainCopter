@@ -39,11 +39,6 @@ class Output():
 
 
 def file_source(filename):
-    """
-    Returns variable source which contains BrainFuck source code
-    file_source is handling BrainFuck source code from file using 'switcher' -f
-    :param filename:
-    """
     with open(filename, encoding='utf-8') as bf_source_file:
         source = bf_source_file.read()
         return source
@@ -59,20 +54,23 @@ def get_input():
     NONARGV = []
     if sys.argv[1:] == NONARGV:
         source = prompt_source()
+        return source
     elif sys.argv[1] == '-f':
         return file_source(sys.argv[2])
-    return source
 
 
 def execute_interpreter(source):
-    print(source)
+
     output = Output()
     source_position = 0
     loop_open = 0
     loop_close = 0
     while len(source) >= source_position:
         #current = source[source_position]
-        if source[source_position] == '+':
+        if source[source_position] == '':
+            print("Jsi v piči")
+            return
+        elif source[source_position] == '+':
             output.increase()
         elif source[source_position] == '-':
             output.decrease()
@@ -96,7 +94,9 @@ def execute_interpreter(source):
 
 
 if __name__ == "__main__":
-    execute_interpreter(get_input())
+    code = get_input()
+    print(code)
+    execute_interpreter(code)
 
 
 
