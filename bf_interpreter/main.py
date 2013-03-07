@@ -30,8 +30,8 @@ class Output():
 
     def move_left(self):
         self.positon -= 1
-        if self.positon < 0:
-            print("!!! Error you have reached outside of BrainFuck working array !!!")
+        #if self.positon < 0:
+            #print("!!! Error you have reached outside of BrainFuck working array !!!")
 
 
 def file_source(filename):
@@ -84,9 +84,7 @@ def execute_interpreter(code):
             print(chr(output.get()), end=r'')
         source_position += 1
 
-
-
-
+#TODO: It really exists i need to be able to make more BrainFuck loop inside Each one other
 
 
 if __name__ == "__main__":
