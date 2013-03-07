@@ -60,9 +60,9 @@ def get_input():
 def execute_interpreter(source):
     output = Output()
     source_position = 0
-    while len(source):
-        loop_open = 0
-        loop_close = 0
+    loop_open = 0
+    loop_close = 0
+    while len(source) >= source_position:
         #current = source[source_position]
         if source[source_position] == '+':
             output.increase()
@@ -76,10 +76,10 @@ def execute_interpreter(source):
             loop_open = source_position
         elif source[source_position] == ']':
             if output.get() > 0:
-                source_position = (loop_open - 1)
+                source_position = (loop_open)
         elif source[source_position] == '.':
             #print(output.actual_output)
-            print(output.get())
+            print(chr(output.get()), end='')
         source_position += 1
 
 
