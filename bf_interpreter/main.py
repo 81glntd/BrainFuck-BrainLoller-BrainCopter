@@ -26,12 +26,15 @@ class Output():
     def move_right(self):
         self.positon += 1
         if self.positon > len(self.actual_output):
-            print("!!! Error you have reached maximum size of BrainFuck working array !!!")
+            self.positon = 0
 
     def move_left(self):
         self.positon -= 1
-        #if self.positon < 0:
-            #print("!!! Error you have reached outside of BrainFuck working array !!!")
+        if self.positon < 0:
+            self.positon = len(self.actual_output) - 1
+
+    def size(self):
+        return self.actual_output.__len__()
 
 
 def file_source(filename):
@@ -59,7 +62,7 @@ def execute_interpreter(code):
     source = code
     output = Output()
     source_position = 0
-    while len(source) > source_position + 1:
+    while len(source) >= source_position + 1:
         if source[source_position] == '+':
             output.increase()
         elif source[source_position] == '-':
@@ -91,10 +94,11 @@ def execute_interpreter(code):
             source_position -= 1
         elif source[source_position] == '.':
             print(chr(output.get()), end=r'')
+        elif source[source_position] == ',':
+            if source_position >= 0 and source_position < 30000:
+                output.set(ord(source[source_position]))
+                source_position += 1
         source_position += 1
-
-
-#TODO: It really exists i need to be able to make more BrainFuck loop inside Each one other
 
 
 if __name__ == "__main__":
