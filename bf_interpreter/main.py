@@ -96,7 +96,8 @@ def execute_interpreter(code):
             print(chr(output.get()), end=r'')
         elif source[source_position] == ',':
             if source_position >= 0 and source_position < 30000:
-                output.set(ord(source[source_position]))
+                x = input()
+                output.set(x)
                 source_position += 1
         source_position += 1
 
@@ -108,5 +109,5 @@ if __name__ == "__main__":
     execute_interpreter(get_input())
 
 
-
+#TODO:operator ','
 
