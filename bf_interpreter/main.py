@@ -59,15 +59,8 @@ def execute_interpreter(code):
     source = code
     output = Output()
     source_position = 0
-    loop_open = 0
-    loop_close = 0
-    counter = 0
     while len(source) > source_position + 1:
-        #current = source[source_position]
-        if source[source_position] == '':
-            print("Jsi v piči")
-            return
-        elif source[source_position] == '+':
+        if source[source_position] == '+':
             output.increase()
         elif source[source_position] == '-':
             output.decrease()
@@ -76,40 +69,39 @@ def execute_interpreter(code):
         elif source[source_position] == '<':
             output.move_left()
         elif source[source_position] == '[':
-            if ~source[source_position]:
-                while 1:
-                    helper = source[source_position]
-                    if helper == ']':
-                        counter -= 1
-                    if helper == '[':
-                        counter += 1
-                    if ~counter:
-                        break
+            if output.get() == 0:
+                loop_counter = 1
+                while loop_counter > 0:
                     source_position += 1
-        elif source[source_position] == ']':
-            if source[source_position]:
-                while 1:
                     helper = source[source_position]
-                    if helper == ']':
-                        counter -= 1
                     if helper == '[':
-                        counter += 1
-                    if ~counter:
-                        break
-                    source_position -= 1
-            elif source[source_position] == '.':
-                #print(output.actual_output)
-                print(chr(output.get()), end=r'')
-            source_position += 1
+                        loop_counter += 1
+                    elif helper == ']':
+                        loop_counter -= 1
+
+        elif source[source_position] == ']':
+            loop_counter = 1
+            while loop_counter > 0:
+                source_position -= 1
+                helper = source[source_position]
+                if helper == '[':
+                    loop_counter -= 1
+                elif helper == ']':
+                    loop_counter += 1
+            source_position -= 1
+        elif source[source_position] == '.':
+            print(chr(output.get()), end=r'')
+        source_position += 1
 
 
 #TODO: It really exists i need to be able to make more BrainFuck loop inside Each one other
 
 
 if __name__ == "__main__":
-    code = get_input()
-    print(code)
-    execute_interpreter(code)
+    #code = get_input()
+    #print(code)
+    #execute_interpreter(code)
+    execute_interpreter(get_input())
 
 
 
