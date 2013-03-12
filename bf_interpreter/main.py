@@ -71,6 +71,8 @@ def execute_interpreter(code):
             output.move_right()
         elif source[source_position] == '<':
             output.move_left()
+        elif source[source_position] == ',':
+            output.set(ord(sys.stdin.read(1)))
         elif source[source_position] == '[':
             if output.get() == 0:
                 loop_counter = 1
@@ -81,7 +83,6 @@ def execute_interpreter(code):
                         loop_counter += 1
                     elif helper == ']':
                         loop_counter -= 1
-
         elif source[source_position] == ']':
             loop_counter = 1
             while loop_counter > 0:
@@ -103,11 +104,7 @@ def execute_interpreter(code):
 
 
 if __name__ == "__main__":
-    #code = get_input()
-    #print(code)
-    #execute_interpreter(code)
     execute_interpreter(get_input())
 
 
-#TODO:operator ','
 
