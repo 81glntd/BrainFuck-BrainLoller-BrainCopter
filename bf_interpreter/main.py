@@ -26,12 +26,15 @@ class Output():
     def move_right(self):
         self.positon += 1
         if self.positon > len(self.actual_output):
-            print("!!! Error you have reached maximum size of BrainFuck working array !!!")
+            self.positon = 0
 
     def move_left(self):
         self.positon -= 1
-        #if self.positon < 0:
-            #print("!!! Error you have reached outside of BrainFuck working array !!!")
+        if self.positon < 0:
+            self.positon = len(self.actual_output) - 1
+
+    def size(self):
+        return self.actual_output.__len__()
 
 
 def file_source(filename):
@@ -59,14 +62,8 @@ def execute_interpreter(code):
     source = code
     output = Output()
     source_position = 0
-    loop_open = 0
-    loop_close = 0
-    while len(source) > source_position + 1:
-        #current = source[source_position]
-        if source[source_position] == '':
-            print("Jsi v piči")
-            return
-        elif source[source_position] == '+':
+    while len(source) >= source_position + 1:
+        if source[source_position] == '+':
             output.increase()
         elif source[source_position] == '-':
             output.decrease()
@@ -75,23 +72,42 @@ def execute_interpreter(code):
         elif source[source_position] == '<':
             output.move_left()
         elif source[source_position] == '[':
-            loop_open = source_position
-        elif source[source_position] == ']':
-            if output.get() > 0:
-                source_position = loop_open
-        elif source[source_position] == '.':
-            #print(output.actual_output)
-            print(chr(output.get()), end=r'')
-        source_position += 1
+            if output.get() == 0:
+                loop_counter = 1
+                while loop_counter > 0:
+                    source_position += 1
+                    helper = source[source_position]
+                    if helper == '[':
+                        loop_counter += 1
+                    elif helper == ']':
+                        loop_counter -= 1
 
-#TODO: It really exists i need to be able to make more BrainFuck loop inside Each one other
+        elif source[source_position] == ']':
+            loop_counter = 1
+            while loop_counter > 0:
+                source_position -= 1
+                helper = source[source_position]
+                if helper == '[':
+                    loop_counter -= 1
+                elif helper == ']':
+                    loop_counter += 1
+            source_position -= 1
+        elif source[source_position] == '.':
+            print(chr(output.get()), end=r'')
+        elif source[source_position] == ',':
+            if source_position >= 0 and source_position < 30000:
+                x = input()
+                output.set(x)
+                source_position += 1
+        source_position += 1
 
 
 if __name__ == "__main__":
-    code = get_input()
-    print(code)
-    execute_interpreter(code)
+    #code = get_input()
+    #print(code)
+    #execute_interpreter(code)
+    execute_interpreter(get_input())
 
 
-
+#TODO:operator ','
 
