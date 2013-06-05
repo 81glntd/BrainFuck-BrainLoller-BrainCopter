@@ -1,7 +1,10 @@
 """
-This is new branch to fix the fucking errors i have no idea where they came from !!!
+This is new branch to make this interpreter fit the test layouts
 """
 __author__ = 'Tomas Sykora sykorto6@fit.cvut.cz'
+
+
+
 
 import sys
 
@@ -96,7 +99,7 @@ def execute_interpreter(code):
         elif source[source_position] == '.':
             print(chr(output.get()), end=r'')
         elif source[source_position] == ',':
-            if source_position >= 0 and source_position < 30000:
+            if 0 <= source_position < 30000:
                 x = input()
                 output.set(x)
                 source_position += 1
