@@ -1,5 +1,5 @@
 """
-This is new branch to fix the fucking errors i have no idea where they came from !!!
+This is new branch to make this interpreter fit the test layouts
 """
 __author__ = 'Tomas Sykora sykorto6@fit.cvut.cz'
 
