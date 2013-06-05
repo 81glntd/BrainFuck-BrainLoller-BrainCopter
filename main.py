@@ -96,7 +96,7 @@ def execute_interpreter(code):
         elif source[source_position] == '.':
             print(chr(output.get()), end=r'')
         elif source[source_position] == ',':
-            if source_position >= 0 and source_position < 30000:
+            if 0 <= source_position < 30000:
                 x = input()
                 output.set(x)
                 source_position += 1
