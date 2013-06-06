@@ -25,6 +25,7 @@ class BrainFuck:
         except:
             self.c = data
 
+        self.user = self._findExMark()
         self._interpret(self.c)
     
     #
@@ -67,8 +68,9 @@ class BrainFuck:
 
             #read input
             elif c[c_i] == ',':
-                self.memory[self.memory_pointer] = ord(sys.stdin.read(1))
+                self.memory[self.memory_pointer] = ord(self._readchar())
 
+            #begining of loop
             elif c[c_i] == '[':
                 if self.memory[self.memory_pointer] == 0:
                     loop_counter = 1
@@ -79,6 +81,8 @@ class BrainFuck:
                             loop_counter += 1
                         elif helper == ']':
                             loop_counter -= 1
+
+            #end of loop
             elif c[c_i] == ']':
                 loop_counter = 1
                 while loop_counter > 0:
@@ -89,9 +93,36 @@ class BrainFuck:
                     elif helper == ']':
                         loop_counter += 1
                 c_i -= 1
+
+            #prompt char
             elif c[c_i] == '.':
                 print(chr(self.memory[self.memory_pointer]), end=r'')
+                self.output += chr(self.memory[self.memory_pointer])
+
             c_i += 1
+
+    def _readchar(self):
+        """Simple method for reading input."""
+        if len(self.user) == 0:
+            return sys.stdin.read(1)
+
+        else:
+            iRet = self.user[0]
+            self.user = self.user[1:]
+            return iRet
+
+    def _findExMark(self):
+        """finfing the stupid !"""
+        c_i = 0
+        while c_i < len(self.c) and self.c[c_i] != '!':
+            c_i += 1
+
+        if c_i+1 < len(self.c):
+            iRet = self.c[c_i+1:]
+            self.code = self.c[:c_i]
+            return iRet
+
+        return ''
 
 
 class BrainLoller():
