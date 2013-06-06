@@ -3,39 +3,39 @@
 
 
 class BrainFuck:
-    """Interpretr jazyka brainfuck."""
+    """Interpret of brainfuck."""
     
     def __init__(self, data, memory=b'\x00', memory_pointer=0):
-        """Inicializace interpretru brainfucku."""
+        """Initialization of brainfuck interpreter."""
         
-        # data programu
+        # data of program
         self.data = data
         
-        # inicializace proměnných
+        # initialization of varialbles
         self.memory = memory
         self.memory_pointer = memory_pointer
         
-        # DEBUG a testy
-        # a) paměť výstupu
+        # DEBUG and tests
+        # a) output memory
         self.output = ''
     
     #
-    # pro potřeby testů
+    # for test purposes
     #
     def get_memory(self):
-        # Nezapomeňte upravit získání návratové hodnoty podle vaší implementace!
+        # Do not forget to change this acording to your implementation
         return self.memory
 
 
 class BrainLoller():
-    """Třída pro zpracování jazyka brainloller."""
+    """Class for managing brainloller."""
     
     def __init__(self, filename):
-        """Inicializace interpretru brainlolleru."""
+        """Initialization of brainloller"""
         
-        # self.data obsahuje rozkódovaný zdrojový kód brainfucku..
+        # self.data contains parsed brainfuck code
         self.data = ''
-        # ..který pak předhodíme interpretru
+        # ..which we give to interpreter
         self.program = BrainFuck(self.data)
 
 
@@ -45,9 +45,9 @@ class BrainCopter():
     def __init__(self, filename):
         """Inicializace interpretru braincopteru."""
         
-        # self.data obsahuje rozkódovaný zdrojový kód brainfucku..
+        # self.data contains parsed brainfuck code
         self.data = ''
-        # ..který pak předhodíme interpretru
+        # ..which we give to interpreter
         self.program = BrainFuck(self.data)
 
 
