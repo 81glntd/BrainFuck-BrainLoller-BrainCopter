@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
+import sys
 class BrainFuck:
     """Interpret of brainfuck."""
     
@@ -11,7 +11,7 @@ class BrainFuck:
         # data of program
         self.data = data
         
-        # initialization of varialbles
+        # initializcodeation of varialbles
         self.memory = bytearray(memory)
         self.memory_pointer = memory_pointer
         
@@ -21,9 +21,11 @@ class BrainFuck:
 
         try:
             with open(data, mode='r') as f:
-                self.code = f.read()
+                self.c = f.read()
         except:
-            self.code = data
+            self.c = data
+
+        self._interpret(self.c)
     
     #
     # for test purposes
@@ -32,48 +34,64 @@ class BrainFuck:
         # Do not forget to change this acording to your implementation
         return self.memory
 
-    def _interpret(self, code):
+    def _interpret(self, c):
         """This is where the magic is going on"""
-        i = 0
-        while p < len(code):
-            if source[source_position] == '+':
-            output.increase()
-        elif source[source_position] == '-':
-            output.decrease()
-        elif source[source_position] == '>':
-            output.move_right()
-        elif source[source_position] == '<':
-            output.move_left()
-        elif source[source_position] == ',':
-            output.set(ord(sys.stdin.read(1)))
-        elif source[source_position] == '[':
-            if output.get() == 0:
+
+        c_i = 0
+        while c_i < len(c):
+
+            #incrementation
+            if c[c_i] == '+':
+                self.memory[self.memory_pointer] += 1
+                #too much
+                if self.memory[self.memory_pointer] == 256:
+                    self.memory[self.memory_pointer] = 0
+
+            #decrementation
+            elif c[c_i] == '-':
+                self.memory[self.memory_pointer] -= 1
+                if self.memory[self.memory_pointer] == -1:
+                    self.memory[self.memory_pointer] = 255
+
+            #right shift
+            elif c[c_i] == '>':
+                self.memory_pointer += 1
+                #make bigger
+                if len(self.memory) == self.memory_pointer:
+                    self.memory += bytearray([0])
+
+            #left shift
+            elif c[c_i] == '<':
+                if self.memory_pointer > 0:
+                    self.memory_pointer -= 1
+
+            #read input
+            elif c[c_i] == ',':
+                self.memory[self.memory_pointer] = ord(sys.stdin.read(1))
+
+            elif c[c_i] == '[':
+                if self.memory[self.memory_pointer] == 0:
+                    loop_counter = 1
+                    while loop_counter > 0:
+                        c_i += 1
+                        helper = c[c_i]
+                        if helper == '[':
+                            loop_counter += 1
+                        elif helper == ']':
+                            loop_counter -= 1
+            elif c[c_i] == ']':
                 loop_counter = 1
                 while loop_counter > 0:
-                    source_position += 1
-                    helper = source[source_position]
+                    c_i -= 1
+                    helper = c[c_i]
                     if helper == '[':
-                        loop_counter += 1
-                    elif helper == ']':
                         loop_counter -= 1
-        elif source[source_position] == ']':
-            loop_counter = 1
-            while loop_counter > 0:
-                source_position -= 1
-                helper = source[source_position]
-                if helper == '[':
-                    loop_counter -= 1
-                elif helper == ']':
-                    loop_counter += 1
-            source_position -= 1
-        elif source[source_position] == '.':
-            print(chr(output.get()), end=r'')
-        elif source[source_position] == ',':
-            if 0 <= source_position < 30000:
-                x = input()
-                output.set(x)
-                source_position += 1
-        source_position += 1
+                    elif helper == ']':
+                        loop_counter += 1
+                c_i -= 1
+            elif c[c_i] == '.':
+                print(chr(self.memory[self.memory_pointer]), end=r'')
+            c_i += 1
 
 
 class BrainLoller():
