@@ -40,10 +40,10 @@ class BrainLoller():
 
 
 class BrainCopter():
-    """Třída pro zpracování jazyka braincopter."""
+    """Class for managing braincopter."""
     
     def __init__(self, filename):
-        """Inicializace interpretru braincopteru."""
+        """Initialization of braincopter."""
         
         # self.data contains parsed brainfuck code
         self.data = ''
