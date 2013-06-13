@@ -41,6 +41,10 @@ class PngReader():
             if chunk['type'] == b'IHDR':
                 if chunk['data'][8:13] != b'\x08\x02\x00\x00\x00':
                     raise PNGNotImplementedError()
+                h = chunk['data'][:4]
+                self.width = h[0] * 256 ** 3 + h[1] * 256 ** 2 + h[2] * 256 + h[3]
+                h = chunk['data'][4:8]
+                self.height = h[0] * 256 ** 3 + h[1] * 256 ** 2 + h[2] * 256 + h[3]
 
         
         # RGB-data obrázku jako seznam seznamů řádek,
