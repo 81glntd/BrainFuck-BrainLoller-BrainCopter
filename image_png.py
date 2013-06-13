@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import zlib
+import zlib, math
 
 
 class PNGWrongHeaderError(Exception):
@@ -56,12 +56,58 @@ class PngReader():
                 self.png_data += chunk['data']
         self.png_data = zlib.decompress(self.png_data)
 
+    def _add_triplet(self, a, b):
+        return (a[0] + b[0]) % 256, (a[1] + b[1]) % 256, (a[2] + b[2]) % 256
 
+    def _average_triplet(self, a, b, c):
+        return a[0] + int((b[0] + c[0])/2), a[1] + int((b[1] + c[1])/2), a[2] + int((b[2] + c[2])/2)
 
-        
-        # RGB-data obrázku jako seznam seznamů řádek,
-        #   v každé řádce co pixel, to trojce (R, G, B)
+    def _paeth(self,a ,b ,c):
+        p = a + b - c
+        pa = abs(p - a)
+        pb = abs(p - b)
+        pc = abs(p - c)
+        if pa <= pb and pa <= pc:
+            return a
+        elif pb <= pc:
+            return b
+        else:
+            return c
+
+    def _filtering(self):
         self.rgb = []
+        pointer = 0
+        for row in range(self.height):
+            filter = self.png_data[pointer]
+            pointer += 1
+            row_array = []
+            left_pixel = (0, 0, 0)
+            up_left_pixel = (0, 0, 0)
+            for column in range(self.width):
+                pixel = (self.png_data[pointer], self.png_data[pointer + 1], self.png_data[pointer + 2])
+                pointer += 3
+                if filter == 0:
+                    left_pixel = pixel
+                    row_array += [pixel]
+                elif filter == 1:
+                    left_pixel = self._add_triplet(pixel, left_pixel)
+                    row_array += [left_pixel]
+                elif filter == 2:
+                    left_pixel = self._add_triplet(pixel, self.rgb[row - 1][column])
+                    row_array += [left_pixel]
+                elif filter == 3:
+                    left_pixel = self._average_triplet(pixel, left_pixel, self.rgb[row - 1][column])
+                    row_array += [left_pixel]
+                elif filter == 4:
+                    up_pixel = self.rgb[row - 1][column]
+                    current_pixel = self._add_triplet(pixel, self._paeth(left_pixel, up_pixel, up_left_pixel))
+                    left_pixel = current_pixel
+                    up_left_pixel = up_pixel
+                    row_array += [current_pixel]
+
+
+            self.rgb += [row_array]
+
 
 
 if __name__ == "__main__":
