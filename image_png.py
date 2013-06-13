@@ -108,8 +108,6 @@ class PngReader():
 
             self.rgb += [row_array]
 
-
-
 if __name__ == "__main__":
     x = PngReader(filepath="test_data/sachovnice.png")
     for line in x.rgb:

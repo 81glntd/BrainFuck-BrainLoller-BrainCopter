@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import sys
+from image_png import PngReader
+
 class BrainFuck:
     """Interpret of brainfuck."""
     
@@ -130,11 +132,57 @@ class BrainLoller():
     
     def __init__(self, filename):
         """Initialization of brainloller"""
-        
+        rgb = PngReader(filename).rgb
+        pointer = (0, 0)
+        way = 0 #right
         # self.data contains parsed brainfuck code
         self.data = ''
+        while True:
+            if pointer[0] >= len(rgb) or pointer[0] < 0 or pointer[1] >= len(rgb[0]) or pointer[1] < 0:
+                break
+            elif rgb[pointer[0]][pointer[1]] == (255, 0, 0):
+                self.data += '>'
+            elif rgb[pointer[0]][pointer[1]] == (128, 0, 0):
+                self.data += '<'
+            elif rgb[pointer[0]][pointer[1]] == (0, 255, 0):
+                self.data += '+'
+            elif rgb[pointer[0]][pointer[1]] == (0, 128, 0):
+                self.data += '-'
+            elif rgb[pointer[0]][pointer[1]] == (0, 0, 255):
+                self.data += '.'
+            elif rgb[pointer[0]][pointer[1]] == (0, 0, 128):
+                self.data += ','
+            elif rgb[pointer[0]][pointer[1]] == (255, 255, 0):
+                self.data += '['
+            elif rgb[pointer[0]][pointer[1]] == (128, 128, 0):
+                self.data += ']'
+            elif rgb[pointer[0]][pointer[1]] == (0, 255, 255):
+                way += 1
+                way %= 4
+            elif rgb[pointer[0]][pointer[1]] == (0, 128, 128):
+                way -= 1
+                way %= 4
+            if way == 0:
+                #right
+                pointer = pointer[0], pointer[1] + 1
+            elif way == 1:
+                #down
+                pointer = pointer[0] + 1, pointer[1]
+            elif way == 0:
+                #left
+                pointer = pointer[0], pointer[1] - 1
+            else:
+                #up
+                pointer = pointer[0] - 1, pointer[1]
+
+
+
+
+
         # ..which we give to interpreter
         self.program = BrainFuck(self.data)
+
+
 
 
 class BrainCopter():
