@@ -50,7 +50,7 @@ class PngReader():
             break
 
     def _find_IDAT(self):
-        self.png_data = []
+        self.png_data = b''
         for chunk in self.chunks:
             if chunk['type'] == b'IDAT':
                 self.png_data += chunk['data']
@@ -67,4 +67,4 @@ class PngReader():
 if __name__ == "__main__":
     PngReader(filepath="test_data/sachovnice.png")
     print("1 done")
-    PngReader(filepath="test_data/sachovnice_paleta.png")
+    #PngReader(filepath="test_data/sachovnice_paleta.png")
