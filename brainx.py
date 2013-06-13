@@ -244,23 +244,41 @@ class BrainCopter():
         self.program = BrainFuck(self.data)
 
 if __name__ == "__main__":
-    BrainCopter('test_data/lk.png')
+    from optparse import OptionParser
+    usage = "usage: %prog switch argument"
+    parser = OptionParser(usage=usage)
+    parser.add_option("-f", "--brainfuck",
+                      action="store_true", dest="brainfuck",
+                      help="Runs given file thought brainfuck interpreter")
+    parser.add_option("-l", "--brainloller",
+                      action="store_true", dest="brainloller",
+                      help="Runs given file thought brainloller interpreter")
+    parser.add_option("-c", "--braincopter",
+                      action="store_true", dest="braincopter",
+                      help="Runs given file thought braincopter interpreter")
+    parser.add_option("-t", "--braintext",
+                      action="store_true", dest="braintext",
+                      help="Runs given text thought brainfuck interpreter")
+    (options, args) = parser.parse_args()
 
+    if len(args) == 0:
+        parser.error("Too few arguments!")
+    if bool(options.braincopter) + bool(options.brainfuck) + bool(options.brainloller) + bool(options.braintext) != 1:
+        parser.error("Use only one switch!")
 
-    # from optparse import OptionParser
-    # usage = "usage: %prog [options] arg1 arg2"
-    # parser = OptionParser(usage=usage)
-    # parser.add_option("-v", "--verbose",
-    #                   action="store_true", dest="verbose", default=True,
-    #                   help="make lots of noise [default]")
-    # parser.add_option("-q", "--quiet",
-    #                   action="store_false", dest="verbose",
-    #                   help="be vewwy quiet (I'm hunting wabbits)")
-    # parser.add_option("-f", "--filename",
-    #                   metavar="FILE", help="write output to FILE")
-    # parser.add_option("-m", "--mode",
-    #                   default="intermediate",
-    #                   help="interaction mode: novice, intermediate, "
-    #                        "or expert [default: %default]")
+    if not options.braintext:
+        try:
+            with open(args[0]):
+                pass
+        except IOError:
+            parser.error("This is not a file!")
 
+    if options.braincopter:
+        BrainCopter(args[0])
+    elif options.brainfuck:
+        BrainFuck(args[0])
+    elif options.brainloller:
+        BrainLoller(args[0])
+    elif options.braintext:
+        BrainFuck(args[0])
 
