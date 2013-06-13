@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import zlib
 
 
 class PNGWrongHeaderError(Exception):
@@ -25,6 +26,7 @@ class PngReader():
 
         self._read_png()
         self._find_IHDR()
+        self._find_IDAT()
 
     def _read_png(self):
         pointer = 8
@@ -45,6 +47,16 @@ class PngReader():
                 self.width = h[0] * 256 ** 3 + h[1] * 256 ** 2 + h[2] * 256 + h[3]
                 h = chunk['data'][4:8]
                 self.height = h[0] * 256 ** 3 + h[1] * 256 ** 2 + h[2] * 256 + h[3]
+            break
+
+    def _find_IDAT(self):
+        self.png_data = []
+        for chunk in self.chunks:
+            if chunk['type'] == b'IDAT':
+                self.png_data += chunk['data']
+        self.png_data = zlib.decompress(self.png_data)
+
+
 
         
         # RGB-data obrázku jako seznam seznamů řádek,
