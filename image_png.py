@@ -29,3 +29,9 @@ class PngReader():
         # RGB-data obrázku jako seznam seznamů řádek,
         #   v každé řádce co pixel, to trojce (R, G, B)
         self.rgb = []
+
+
+if __name__ == "__main__":
+    PngReader(filepath="test_data/sachovnice.png")
+    print("1 done")
+    PngReader(filepath="test_data/sachovnice.jpg")
