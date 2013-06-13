@@ -138,7 +138,6 @@ class BrainLoller():
         # self.data contains parsed brainfuck code
         self.data = ''
         while True:
-            print(pointer)
             if pointer[0] >= len(rgb) or pointer[0] < 0 or pointer[1] >= len(rgb[0]) or pointer[1] < 0:
                 break
             elif rgb[pointer[0]][pointer[1]] == (255, 0, 0):
@@ -191,13 +190,71 @@ class BrainCopter():
     
     def __init__(self, filename):
         """Initialization of braincopter."""
-        
+        rgb = PngReader(filename).rgb
+        pointer = (0, 0)
+        way = 0 #right
         # self.data contains parsed brainfuck code
         self.data = ''
+        counter = 0
+        while True:
+            print(counter)
+            counter += 1
+            if pointer[0] >= len(rgb) or pointer[0] < 0 or pointer[1] >= len(rgb[0]) or pointer[1] < 0:
+                break
+            pixel = rgb[pointer[0]][pointer[1]]
+            cmd = (-2 * pixel[0] + 3 * pixel[1] + pixel[2]) % 11
+            if cmd == 0:
+                self.data += '>'
+            elif cmd == 1:
+                self.data += '<'
+            elif cmd == 2:
+                self.data += '+'
+            elif cmd == 3:
+                self.data += '-'
+            elif cmd == 4:
+                self.data += '.'
+            elif cmd == 5:
+                self.data += ','
+            elif cmd == 6:
+                self.data += '['
+            elif cmd == 7:
+                self.data += ']'
+            elif cmd == 8:
+                way += 1
+                way %= 4
+            elif cmd == 9:
+                way -= 1
+                way %= 4
+            if way == 0:
+                #right
+                pointer = pointer[0], pointer[1] + 1
+            elif way == 1:
+                #down
+                pointer = pointer[0] + 1, pointer[1]
+            elif way == 2:
+                #left
+                pointer = pointer[0], pointer[1] - 1
+            else:
+                #up
+                pointer = pointer[0] - 1, pointer[1]
         # ..which we give to interpreter
         self.program = BrainFuck(self.data)
 
 if __name__ == "__main__":
-    BrainLoller('test_data/HelloWorld.png')
+    from optparse import OptionParser
+    usage = "usage: %prog [options] arg1 arg2"
+    parser = OptionParser(usage=usage)
+    parser.add_option("-v", "--verbose",
+                      action="store_true", dest="verbose", default=True,
+                      help="make lots of noise [default]")
+    parser.add_option("-q", "--quiet",
+                      action="store_false", dest="verbose",
+                      help="be vewwy quiet (I'm hunting wabbits)")
+    parser.add_option("-f", "--filename",
+                      metavar="FILE", help="write output to FILE")
+    parser.add_option("-m", "--mode",
+                      default="intermediate",
+                      help="interaction mode: novice, intermediate, "
+                           "or expert [default: %default]")
 
 
