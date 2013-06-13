@@ -27,6 +27,7 @@ class PngReader():
         self._read_png()
         self._find_IHDR()
         self._find_IDAT()
+        self._filtering()
 
     def _read_png(self):
         pointer = 8
@@ -105,12 +106,12 @@ class PngReader():
                     up_left_pixel = up_pixel
                     row_array += [current_pixel]
 
-
             self.rgb += [row_array]
 
 
 
 if __name__ == "__main__":
-    PngReader(filepath="test_data/sachovnice.png")
-    print("1 done")
-    #PngReader(filepath="test_data/sachovnice_paleta.png")
+    x = PngReader(filepath="test_data/sachovnice.png")
+    for line in x.rgb:
+        for pixel in line:
+            print(pixel)
