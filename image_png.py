@@ -64,16 +64,20 @@ class PngReader():
         return a[0] + int((b[0] + c[0])/2), a[1] + int((b[1] + c[1])/2), a[2] + int((b[2] + c[2])/2)
 
     def _paeth(self,a ,b ,c):
-        p = a + b - c
-        pa = abs(p - a)
-        pb = abs(p - b)
-        pc = abs(p - c)
-        if pa <= pb and pa <= pc:
-            return a
-        elif pb <= pc:
-            return b
-        else:
-            return c
+        ret = tuple()
+        for i in range(3):
+
+            p = a[i] + b[i] - c[i]
+            pa = abs(p - a[i])
+            pb = abs(p - b[i])
+            pc = abs(p - c[i])
+            if pa <= pb and pa <= pc:
+                ret += (a[i],)
+            elif pb <= pc:
+                ret += (b[i],)
+            else:
+                ret += (c[i],)
+        return ret
 
     def _filtering(self):
         self.rgb = []

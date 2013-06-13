@@ -138,6 +138,7 @@ class BrainLoller():
         # self.data contains parsed brainfuck code
         self.data = ''
         while True:
+            print(pointer)
             if pointer[0] >= len(rgb) or pointer[0] < 0 or pointer[1] >= len(rgb[0]) or pointer[1] < 0:
                 break
             elif rgb[pointer[0]][pointer[1]] == (255, 0, 0):
@@ -168,7 +169,7 @@ class BrainLoller():
             elif way == 1:
                 #down
                 pointer = pointer[0] + 1, pointer[1]
-            elif way == 0:
+            elif way == 2:
                 #left
                 pointer = pointer[0], pointer[1] - 1
             else:
@@ -195,5 +196,8 @@ class BrainCopter():
         self.data = ''
         # ..which we give to interpreter
         self.program = BrainFuck(self.data)
+
+if __name__ == "__main__":
+    BrainLoller('test_data/HelloWorld.png')
 
 
