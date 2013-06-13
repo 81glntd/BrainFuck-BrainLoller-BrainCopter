@@ -23,6 +23,9 @@ class PngReader():
         if self.png_source[:8] != b'\x89\x50\x4e\x47\x0d\x0a\x1a\x0a':
             raise PNGWrongHeaderError()
 
+        self._read_png()
+        self._find_IHDR()
+
     def _read_png(self):
         pointer = 8
         self.chunks = []
@@ -33,6 +36,12 @@ class PngReader():
                              'data': self.png_source[pointer + 8: pointer + 8 + chunk_size]}]
             pointer += 12 + chunk_size
 
+    def _find_IHDR(self):
+        for chunk in self.chunks:
+            if chunk['type'] == b'IHDR':
+                if chunk['data'][8:13] != b'\x08\x02\x00\x00\x00':
+                    raise PNGNotImplementedError()
+
         
         # RGB-data obrázku jako seznam seznamů řádek,
         #   v každé řádce co pixel, to trojce (R, G, B)
@@ -42,4 +51,4 @@ class PngReader():
 if __name__ == "__main__":
     PngReader(filepath="test_data/sachovnice.png")
     print("1 done")
-    PngReader(filepath="test_data/sachovnice.jpg")
+    PngReader(filepath="test_data/sachovnice_paleta.png")
