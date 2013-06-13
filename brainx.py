@@ -198,10 +198,7 @@ class BrainCopter():
         way = 0 #right
         # self.data contains parsed brainfuck code
         self.data = ''
-        counter = 0
         while True:
-            print(counter)
-            counter += 1
             if pointer[0] >= len(rgb) or pointer[0] < 0 or pointer[1] >= len(rgb[0]) or pointer[1] < 0:
                 break
             pixel = rgb[pointer[0]][pointer[1]]
