@@ -256,6 +256,7 @@ if __name__ == "__main__":
     parser.add_option("-t", "--braintext",
                       action="store_true", dest="braintext",
                       help="Runs given text thought brainfuck interpreter")
+
     (options, args) = parser.parse_args()
 
     if len(args) == 0:
