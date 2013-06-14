@@ -4,6 +4,7 @@
 import sys
 from image_png import PngReader
 
+
 class BrainFuck:
     """Interpret of brainfuck."""
     
@@ -178,15 +179,8 @@ class BrainLoller():
                 #up
                 pointer = pointer[0] - 1, pointer[1]
 
-
-
-
-
         # ..which we give to interpreter
         self.program = BrainFuck(self.data)
-
-
-
 
 class BrainCopter():
     """Class for managing braincopter."""
@@ -195,7 +189,7 @@ class BrainCopter():
         """Initialization of braincopter."""
         rgb = PngReader(filename).rgb
         pointer = (0, 0)
-        way = 0 #right
+        way = 0  # right
         # self.data contains parsed brainfuck code
         self.data = ''
         while True:

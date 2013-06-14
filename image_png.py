@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import zlib, math
+import zlib
 
 
 class PNGWrongHeaderError(Exception):
@@ -63,7 +63,7 @@ class PngReader():
     def _average_triplet(self, a, b, c):
         return a[0] + int((b[0] + c[0])/2), a[1] + int((b[1] + c[1])/2), a[2] + int((b[2] + c[2])/2)
 
-    def _paeth(self,a ,b ,c):
+    def _paeth(self, a, b, c):
         ret = tuple()
         for i in range(3):
 
